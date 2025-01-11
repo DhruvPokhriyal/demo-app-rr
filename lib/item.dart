@@ -4,10 +4,10 @@ class Item {
   late String imgUrl;
   late String description;
   late bool rentStatus;
-  late bool sellStatus;
+  late bool saleStatus;
   late double price;
 
-  Item({required this.name, required this.imgUrl, required this.description, required this.rentStatus, required this.sellStatus, required this.price});
+  Item({required this.name, required this.imgUrl, required this.description, required this.rentStatus, required this.saleStatus, required this.price});
 
 
 }
