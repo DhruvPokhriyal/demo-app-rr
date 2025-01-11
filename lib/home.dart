@@ -15,14 +15,12 @@ class _HomeState extends State<Home> {
         title: Text(
           'Demo App',
           style: TextStyle(
-            color: Colors.black,
             fontWeight: FontWeight.bold,
             fontFamily: "Roboto",
             fontSize: 24.0,
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.yellow[700],
       ),
     );
   }
