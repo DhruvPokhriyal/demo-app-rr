@@ -18,6 +18,7 @@ class _HomeState extends State<Home> {
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontFamily: "Roboto",
+            fontSize: 24.0,
           ),
         ),
         centerTitle: true,
