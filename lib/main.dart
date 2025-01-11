@@ -6,11 +6,11 @@ void main() {
   runApp(MaterialApp(
     home: Home(),
     theme: FlexThemeData.light(
-      scheme: FlexScheme.gold,
+      scheme: FlexScheme.shark,
       useMaterial3: true,
     ),
     darkTheme: FlexThemeData.dark(
-        scheme: FlexScheme.gold,
+        scheme: FlexScheme.shark,
         useMaterial3: true,
     ),
   ));
