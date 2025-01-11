@@ -37,6 +37,7 @@ class _HomeState extends State<Home> {
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
+            mainAxisExtent: 230,
           ),
           itemCount: data.length,
           itemBuilder: (context, index) {
@@ -61,7 +62,15 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       SizedBox(height: 20.0,),
-                      Image.asset('assets/images/badminton.jpg'),
+                      Container(
+                        width: double.infinity,
+                        height: 80,
+                        child: Image.asset(
+                          'assets/images/badminton.jpg',
+                          fit: BoxFit.fitWidth,
+
+                        ),
+                      ),
                       SizedBox(height: 20.0,),
                       Text(
                         rentMsg,
