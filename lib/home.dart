@@ -39,63 +39,43 @@ class _HomeState extends State<Home> {
       ),
       body: Padding(
         padding: EdgeInsets.all(8.0),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            mainAxisExtent: 230,
-          ),
-          itemCount: data.length,
-          itemBuilder: (context, index) {
+        child: Column(
+          children: [
+            Container(
+              height: 20.0,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (context, index) {
 
-            String rentMsg = data[index].rentStatus ? 'On Rent' : 'Not On Rent';
-            String saleMsg = data[index].saleStatus ? 'On Sale' : 'Not On Sale';
+                  String rentMsg = data[index].rentStatus ? 'On Rent' : 'Not On Rent';
+                  String saleMsg = data[index].saleStatus ? 'On Sale' : 'Not On Sale';
 
-            return GestureDetector(
-              onTap: () {
-                print("${data[index].name} is clicked");
-              },
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Text(
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
+                    child: Card(
+                      child: ListTile(
+                        onTap: () {
+                          print(data[index].name);
+                        },
+                        title: Text(
                           data[index].name,
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+                        ),
+                        leading: CircleAvatar(
+                          backgroundImage: AssetImage(data[index].imgUrl),
+                        ),
+                        subtitle: Text(
+                          '$rentMsg\n$saleMsg\n${data[index].price} INR'
                         ),
                       ),
-                      SizedBox(height: 20.0,),
-                      Container(
-                        width: double.infinity,
-                        height: 80,
-                        child: Image.asset(
-                          'assets/images/badminton.jpg',
-                          fit: BoxFit.fitWidth,
-
-                        ),
-                      ),
-                      SizedBox(height: 20.0,),
-                      Text(
-                        rentMsg,
-                      ),
-                      Text(
-                          saleMsg,
-                      ),
-                      Text(
-                          '${data[index].price} INR',
-                      )
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
+            )
+          ],
+        )
       ),
     );
   }
