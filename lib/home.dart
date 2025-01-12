@@ -4,6 +4,12 @@ import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'dart:ui' as ui;
 
+Future<void> preloadImages(BuildContext context, List<String> imagePaths) async {
+  for (var imagePath in imagePaths) {
+    await precacheImage(AssetImage(imagePath), context);
+  }
+}
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,9 +34,12 @@ class _HomeState extends State<Home> {
     void initState() {
       // TODO: implement initState
       super.initState();
-      for(String imageName in carouselImages){
-        precacheImage('assets/images/$imageName.jpg' as ImageProvider<Object>, context);
-      }
+      preloadImages(
+        context,
+        carouselImages.map((image) => 'assets/images/$image.jpg').toList(),
+      ).then((_) {
+        print("All images preloaded");
+      });
     }
 
     return Scaffold(
