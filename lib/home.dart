@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:demo_app_rr/item.dart';
+import 'package:sidebarx/sidebarx.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,7 +29,13 @@ class _HomeState extends State<Home> {
             color: Colors.black,
           ),
         ),
-        centerTitle: true,
+      ),
+      endDrawer: SidebarX(
+        controller: SidebarXController(selectedIndex: 0, extended: true),
+        items: [
+          SidebarXItem(icon: Icons.home, label: 'Home', onTap: () { print('Home is clicked'); }),
+          SidebarXItem(icon: Icons.search, label: 'Search'),
+        ]
       ),
       body: Padding(
         padding: EdgeInsets.all(8.0),
@@ -47,6 +54,7 @@ class _HomeState extends State<Home> {
 
             return GestureDetector(
               onTap: () {
+                print("${data[index].name} is clicked");
               },
               child: Card(
                 child: Padding(
