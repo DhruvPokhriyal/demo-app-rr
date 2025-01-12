@@ -54,19 +54,43 @@ class _HomeState extends State<Home> {
 
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
-                    child: Card(
-                      child: ListTile(
-                        onTap: () {
-                          print(data[index].name);
-                        },
-                        title: Text(
-                          data[index].name,
-                        ),
-                        leading: CircleAvatar(
-                          backgroundImage: AssetImage(data[index].imgUrl),
-                        ),
-                        subtitle: Text(
-                          '$rentMsg\n$saleMsg\n${data[index].price} INR'
+                    child: Container(
+                      height: 100,
+                      child: Card(
+                        child: IntrinsicHeight(
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: ListTile(
+                                  onTap: () {
+                                    print(data[index].name);
+                                  },
+                                  title: Text(
+                                    data[index].name,
+                                  ),
+                                  leading: CircleAvatar(
+                                    backgroundImage: AssetImage(data[index].imgUrl),
+                                  ),
+                                  subtitle: Text(
+                                    '$rentMsg\n$saleMsg\n${data[index].price} INR'
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        data[index].description,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
