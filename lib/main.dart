@@ -9,10 +9,6 @@ void main() {
       scheme: FlexScheme.shark,
       useMaterial3: true,
     ),
-    darkTheme: FlexThemeData.dark(
-        scheme: FlexScheme.shark,
-        useMaterial3: true,
-    ),
   ));
 }
 

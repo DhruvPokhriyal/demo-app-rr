@@ -3,6 +3,7 @@ import 'package:demo_app_rr/item.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'dart:ui' as ui;
+import 'package:circle_nav_bar/circle_nav_bar.dart';
 
 Future<void> preloadImages(BuildContext context, List<String> imagePaths) async {
   for (var imagePath in imagePaths) {
@@ -25,22 +26,32 @@ class _HomeState extends State<Home> {
   ];
   List<String> carouselImages = ['coca-cola', 'sprite', 'drinks', 'oreo-shake'];
 
+  int _tabIndex = 1;
+  int get tabIndex => _tabIndex;
+  set tabIndex(int v) {
+    _tabIndex = v;
+    setState(() {});
+  }
 
+  late PageController pageController;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    preloadImages(
+      context,
+      carouselImages.map((image) => 'assets/images/$image.jpg').toList(),
+    ).then((_) {
+      print("All images preloaded");
+    });
+    pageController = PageController(initialPage: _tabIndex);
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    @override
-    void initState() {
-      // TODO: implement initState
-      super.initState();
-      preloadImages(
-        context,
-        carouselImages.map((image) => 'assets/images/$image.jpg').toList(),
-      ).then((_) {
-        print("All images preloaded");
-      });
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -164,6 +175,35 @@ class _HomeState extends State<Home> {
             )
           ],
         )
+      ),
+      bottomNavigationBar: CircleNavBar(
+        activeIcons: const [
+          Icon(Icons.person, color: Colors.amberAccent),
+          Icon(Icons.home, color: Colors.amberAccent),
+          Icon(Icons.favorite, color: Colors.amberAccent),
+        ],
+        inactiveIcons: const [
+          Text("My"),
+          Text("Home"),
+          Text("Like"),
+        ],
+        color: Colors.white,
+        height: 60,
+        circleWidth: 60,
+        activeIndex: tabIndex,
+        onTap: (index) {
+          tabIndex = index;
+          pageController.jumpToPage(tabIndex);
+        },
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
+        cornerRadius: const BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+          bottomRight: Radius.circular(24),
+          bottomLeft: Radius.circular(24),
+        ),
+        shadowColor: Colors.amberAccent,
+        elevation: 10,
       ),
     );
   }
