@@ -73,119 +73,126 @@ class _HomeState extends State<Home> {
           SidebarXItem(icon: Icons.search, label: 'Search'),
         ]
       ),
-      body: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Container(
-                child: FlutterCarousel(
-                  options: FlutterCarouselOptions(
-                    height: 400.0,
-                    showIndicator: true,
-                    slideIndicator: CircularSlideIndicator(),
-                    autoPlay: true,
-                    autoPlayInterval: Duration(seconds: 3),
-                    viewportFraction: 1.0,
-                    enlargeCenterPage: true,
-                  ),
-                  items: carouselImages.map((i) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.symmetric(horizontal: 5.0),
-                            decoration: BoxDecoration(
-                                color: Colors.amber
-                            ),
-                            child: Image(
-                              image: AssetImage('assets/images/$i.jpg'),
-                              fit: BoxFit.cover,
-                            ),
-                        );
-                      },
-                    );
-                  }).toList(),
-                )
-            ),
-            SizedBox(height: 30.0,),
-            Expanded(
-              child: ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-
-                  String rentMsg = data[index].rentStatus ? 'On Rent' : 'Not On Rent';
-                  String saleMsg = data[index].saleStatus ? 'On Sale' : 'Not On Sale';
-
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
-                    child: Container(
-                      height: 110,
-                      child: GestureDetector(
-                        onTap: () {
-                          print(data[index].name);
+      body: PageView(
+          controller: pageController,
+          onPageChanged: (v) {
+            tabIndex = v;
+          },
+        children: [Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Container(
+                  child: FlutterCarousel(
+                    options: FlutterCarouselOptions(
+                      height: 400.0,
+                      showIndicator: true,
+                      slideIndicator: CircularSlideIndicator(),
+                      autoPlay: true,
+                      autoPlayInterval: Duration(seconds: 3),
+                      viewportFraction: 1.0,
+                      enlargeCenterPage: true,
+                    ),
+                    items: carouselImages.map((i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin: EdgeInsets.symmetric(horizontal: 5.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.amber
+                              ),
+                              child: Image(
+                                image: AssetImage('assets/images/$i.jpg'),
+                                fit: BoxFit.cover,
+                              ),
+                          );
                         },
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CircleAvatar(
-                                  backgroundImage: AssetImage(data[index].imgUrl),
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      data[index].name,
-                                    ),
-                                    Text(
-                                      rentMsg,
-                                    ),
-                                    Text(
-                                      saleMsg,
-                                    ),
-                                    Text(
-                                      '${data[index].price} INR',
-                                    )
-                                  ],
-                                ),
+                      );
+                    }).toList(),
+                  )
+              ),
+              SizedBox(height: 30.0,),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
 
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          data[index].description,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    ),
+                    String rentMsg = data[index].rentStatus ? 'On Rent' : 'Not On Rent';
+                    String saleMsg = data[index].saleStatus ? 'On Sale' : 'Not On Sale';
+
+                    return Padding(
+                      padding: EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
+                      child: Container(
+                        height: 110,
+                        child: GestureDetector(
+                          onTap: () {
+                            print(data[index].name);
+                          },
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: AssetImage(data[index].imgUrl),
                                   ),
-                                )
-                              ],
+                                  Column(
+                                    children: [
+                                      Text(
+                                        data[index].name,
+                                      ),
+                                      Text(
+                                        rentMsg,
+                                      ),
+                                      Text(
+                                        saleMsg,
+                                      ),
+                                      Text(
+                                        '${data[index].price} INR',
+                                      )
+                                    ],
+                                  ),
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            data[index].description,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            )
-          ],
-        )
+                    );
+                  },
+                ),
+              )
+            ],
+          )
+        ),
+    ]
       ),
       bottomNavigationBar: CircleNavBar(
         activeIcons: const [
-          Icon(Icons.person, color: Colors.amberAccent),
+          Icon(Icons.settings, color: Colors.amberAccent),
           Icon(Icons.home, color: Colors.amberAccent),
-          Icon(Icons.favorite, color: Colors.amberAccent),
+          Icon(Icons.add_shopping_cart, color: Colors.amberAccent),
         ],
         inactiveIcons: const [
           Text("My"),
           Text("Home"),
-          Text("Like"),
+          Text("Cart"),
         ],
         color: Colors.white,
         height: 60,
